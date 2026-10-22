@@ -1,5 +1,7 @@
 # Recording Footswitch
 
+By Michal Lemczyk.
+
 A four-button USB footswitch for controlling recording and playback hands-free
 while playing bass guitar.
 
@@ -11,16 +13,16 @@ or rewind the backing track. Both hands stay on the bass.
 
 ![The Arduino box with its two jacks (A/B and C/D) and the two dual footswitches plugged into it](images/footswitch-setup.jpg)
 
-In the author's build, the four switches are two off-the-shelf dual
-footswitches (two switches each, on one stereo cable). They plug into two
-stereo jacks on a small aluminium box that holds the Arduino: one jack
-carries switches A and B, the other C and D.
+In my build, the four switches are two off-the-shelf dual footswitches (two
+switches each, on one stereo cable). They plug into two stereo jacks on a
+small aluminium box that holds the Arduino: one jack carries switches A and
+B, the other C and D.
 
 ![Inside the box: the two stereo jacks wired to the Arduino Micro (the USB keyboard), with its USB cable](images/enclosure-inside.jpg)
 
 ## Buttons
 
-| Switch | Arduino pin | Sends | Used for in the author's setup |
+| Switch | Arduino pin | Sends | Used for in my setup |
 |---|---|---|---|
 | A | 9 | Ctrl+Shift+Alt+F12 | Reset: stop Guitar Pro playback and return to bar 1 |
 | B | 7 | Ctrl+Shift+Alt+F11 | Start: arm the recorder, then start Guitar Pro playback |
@@ -31,15 +33,31 @@ The sketch only sends keystrokes. What each one does is decided entirely by
 the AutoHotkey script on the PC, so the same pedal works with any DAW or
 player.
 
-## Hardware
+## Parts
 
-- **An Arduino board with native USB**, i.e. one that can act as a USB
-  keyboard (HID): an ATmega32u4 board such as the Leonardo, Micro or Pro
-  Micro, or similar. Boards that use a separate USB-serial chip, like the Uno
-  or Nano, cannot use the `Keyboard` library.
-- **Four momentary footswitches** (normally open). Wire each one between its
-  pin and GND. The sketch turns on the internal pull-ups (`INPUT_PULLUP`), so
-  no resistors are needed, and a press reads `LOW`.
+| part | used in my build | notes |
+|---|---|---|
+| Microcontroller | Arduino Micro | Any board with native USB that can act as a USB keyboard (HID): an ATmega32u4 board such as the Leonardo, Micro or Pro Micro. Boards with a separate USB-serial chip, like the Uno or Nano, cannot use the `Keyboard` library |
+| Footswitches | 2 dual footswitches, two switches on one 1/4" stereo cable each ([one of them](https://www.amazon.ca/dp/B0BMF6H337); the other model is no longer sold) | Must be **momentary** and normally open. A latching switch would only trigger on every other press |
+| Jacks | 2 × 1/4" (6.35 mm) stereo (TRS) panel jacks, non-switched | One per dual footswitch |
+| Enclosure | Cast aluminium box, 112 × 60 × 32 mm | The common "1590B" size |
+| Cable | USB cable for the board | Power and data both come over USB |
+
+No resistors are needed: the sketch turns on the board's internal pull-ups
+(`INPUT_PULLUP`), so a pressed switch reads `LOW`.
+
+## Wiring
+
+Each dual footswitch carries its two switches on the tip and ring of one
+stereo cable, with the sleeve as their common return. Each jack is wired:
+
+| jack | tip | ring | sleeve |
+|---|---|---|---|
+| 1 (switches A, B) | pin 9 (A) | pin 7 (B) | GND |
+| 2 (switches C, D) | pin 5 (C) | pin 3 (D) | GND |
+
+If a footswitch's two buttons come out the wrong way round, swap the two pin
+numbers in the sketch rather than the wires.
 
 ## Software
 
@@ -85,6 +103,27 @@ button's block. Key names such as `KEY_F9` and `KEY_LEFT_CTRL` are listed in
 the Arduino
 [Keyboard modifiers reference](https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/keyboardModifiers/).
 
+## How this was built
+
+I designed and built the hardware and wrote the sketch; it drives the
+AutoHotkey script that records my bass covers. This repo, its README and
+the parts and wiring tables were put together with
+[Claude Code](https://claude.com/claude-code), Anthropic's AI coding agent,
+working from my notes, photos and sketch; commits it helped write carry a
+`Co-Authored-By: Claude` line.
+
+## Related projects
+
+Part of one personal project: recording bass covers along to Guitar Pro tabs,
+scoring them, and matching my rig's tone to the original recordings.
+
+- [Guitar Pro Utilities](https://github.com/mlemczyk/Guitar-Pro-Utilities):
+  Python tools for the tabs this footswitch plays along to: parsing, syncing
+  backing tracks, embedding audio, MIDI export and difficulty.
+- [Bass Guitar Equipment Analysis](https://github.com/mlemczyk/Bass-Guitar-Equipment-Analysis):
+  measurements and fitted models of the rig's pedals, made by re-amping test
+  signals through each one.
+
 ## License
 
-Public domain, under the [Unlicense](UNLICENSE).
+Public domain, under the [Unlicense](LICENSE).
