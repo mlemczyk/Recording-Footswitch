@@ -9,6 +9,15 @@ so an [AutoHotkey](https://www.autohotkey.com/) script can bind them to whatever
 the recording workflow needs: start a take, stop and save it, throw it away,
 or rewind the backing track. Both hands stay on the bass.
 
+![The Arduino box with its two jacks (A/B and C/D) and the two dual footswitches plugged into it](images/footswitch-setup.jpg)
+
+In the author's build, the four switches are two off-the-shelf dual
+footswitches (two switches each, on one stereo cable). They plug into two
+stereo jacks on a small aluminium box that holds the Arduino: one jack
+carries switches A and B, the other C and D.
+
+![Inside the box: the two stereo jacks wired to an Arduino Pro Micro-style board, with its USB cable](images/enclosure-inside.jpg)
+
 ## Buttons
 
 | Switch | Arduino pin | Sends | Used for in the author's setup |
