@@ -16,7 +16,7 @@ footswitches (two switches each, on one stereo cable). They plug into two
 stereo jacks on a small aluminium box that holds the Arduino: one jack
 carries switches A and B, the other C and D.
 
-![Inside the box: the two stereo jacks wired to an Arduino Pro Micro-style board, with its USB cable](images/enclosure-inside.jpg)
+![Inside the box: the two stereo jacks wired to the Arduino Micro (the USB keyboard), with its USB cable](images/enclosure-inside.jpg)
 
 ## Buttons
 
